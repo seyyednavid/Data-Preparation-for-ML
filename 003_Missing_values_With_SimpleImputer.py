@@ -13,11 +13,18 @@ imputer = SimpleImputer() # default is mean of columns
 imputer.fit(my_df)
 imputer.transform(my_df)
 
-my_df1 = imputer.transform(my_df)
+my_df1 = imputer.transform(my_df) #array
 
 
 # We can do fit and transform both at once
-imputer.fit_transform(my_df)
+imputer.fit_transform(my_df) # array
 """ Only use fit transform on training data.
 if we wanna apply the same logic for test data or
 to new data fit and transform seperately"""
+
+# Convert to DataFrame
+my_df2 = pd.DataFrame(imputer.fit_transform(my_df), columns=my_df.columns)
+
+# Apply for some columns
+imputer.fit_transform(my_df[["B"]])
+my_df["B"] = imputer.fit_transform(my_df[["B"]])
